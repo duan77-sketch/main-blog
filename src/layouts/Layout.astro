@@ -108,7 +108,7 @@ const bannerOffset =
 				  media={favicon.theme && `(prefers-color-scheme: ${favicon.theme})`}
 			/>
 		))}
-		<script src="https://gcore.jsdelivr.net/npm/live2d-widgets@1.0.0/dist/autoload.js"></script>
+		
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
@@ -147,6 +147,35 @@ const bannerOffset =
 		<slot name="head"></slot>
 
 		<link rel="alternate" type="application/rss+xml" title={profileConfig.name} href={`${Astro.site}rss.xml`}/>
+
+		<!-- Live2D widget: load from CDN and position at bottom-left -->
+		<script src="https://fastly.jsdelivr.net/npm/live2d-widgets@1.0.0/dist/autoload.js" defer></script>
+		<script is:inline>
+		(function(){
+		  function positionWidget(){
+		    const el = document.querySelector('.live2d-widget') || document.querySelector('[id^="live2d"]') || document.querySelector('.waifu');
+		    if (!el) return;
+		    el.style.position = 'fixed';
+		    el.style.left = '1rem';
+		    el.style.bottom = '1rem';
+		    el.style.right = 'auto';
+		    el.style.zIndex = '9999';
+		  }
+
+		  const observer = new MutationObserver((mutations, obs) => {
+		    if (document.querySelector('.live2d-widget') || document.querySelector('[id^="live2d"]') || document.querySelector('.waifu')) {
+		      positionWidget();
+		      obs.disconnect();
+		    }
+		  });
+
+		  // watch for widget injection
+		  observer.observe(document.body, { childList: true, subtree: true });
+		  window.addEventListener('load', positionWidget);
+		  // fallback in case widget loads late
+		  setTimeout(positionWidget, 1500);
+		})();
+		</script>
 
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
