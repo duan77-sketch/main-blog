@@ -186,6 +186,55 @@ const bannerOffset =
 
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
+
+		<!-- Live2D placeholder (fallback if CDN widget not injected) -->
+		<div id="live2d-placeholder" class="fixed left-4 bottom-4 z-50 hidden">
+			<a href="https://github.com/stevenjoezhang/live2d-widget" target="_blank" rel="noopener noreferrer" aria-label="Live2D">
+				<div class="w-12 h-12 rounded-full bg-white dark:bg-gray-900 shadow-lg flex items-center justify-center">
+					<svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<circle cx="12" cy="12" r="10" fill="#FFF3" />
+						<circle cx="8.5" cy="10" r="1.2" fill="#222" />
+						<circle cx="15.5" cy="10" r="1.2" fill="#222" />
+						<path d="M8 15c1.2 1 2.8 1 4 0" stroke="#222" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+				</div>
+			</a>
+		</div>
+
+		<script is:inline>
+		(function(){
+		  const checkForWidget = () => {
+		    const injected = document.querySelector('.live2d-widget') || document.querySelector('[id^="live2d"]') || document.querySelector('.waifu');
+		    const placeholder = document.getElementById('live2d-placeholder');
+		    if (injected) {
+		      // if widget exists, hide placeholder and position injected widget
+		      if (placeholder) placeholder.classList.add('hidden');
+		      injected.style.position = 'fixed';
+		      injected.style.left = '1rem';
+		      injected.style.bottom = '1rem';
+		      injected.style.right = 'auto';
+		      injected.style.zIndex = '9999';
+		      return true;
+		    } else {
+		      // show placeholder
+		      if (placeholder) placeholder.classList.remove('hidden');
+		      return false;
+		    }
+		  };
+
+		  // poll a few times in case widget injects later
+		  let attempts = 0;
+		  const maxAttempts = 10;
+		  const timer = setInterval(() => {
+		    attempts++;
+		    if (checkForWidget() || attempts >= maxAttempts) {
+		      clearInterval(timer);
+		    }
+		  }, 300);
+		  // also try on load
+		  window.addEventListener('load', () => setTimeout(checkForWidget, 300));
+		})();
+		</script>
 	</body>
 </html>
 
