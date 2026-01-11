@@ -35,6 +35,13 @@ export type SiteConfig = {
 		depth: 1 | 2 | 3;
 	};
 
+	/** Sakura (floating petals) configuration */
+	sakura?: {
+		enable?: boolean; // enable sakura effect site-wide
+		style?: "default" | "ryuchan"; // visual style variant
+		mobileDisable?: boolean; // disable on small viewports for performance
+	};
+
 	favicon: Favicon[];
 };
 

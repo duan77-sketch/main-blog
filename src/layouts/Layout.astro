@@ -4,7 +4,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
-import HatsuneMiku from "@components/widget/HatsuneMiku.svelte";
+import Sakura from "@components/widget/Sakura.svelte";
 import { profileConfig, siteConfig } from "@/config";
 import {
 	AUTO_MODE,
@@ -160,8 +160,11 @@ const bannerOffset =
 		<!-- increase the page height during page transition to prevent the scrolling animation from jumping -->
 		<div id="page-height-extend" class="hidden h-[300vh]"></div>
 
-		<!-- Hatsune Miku mascot (client-side only) -->
-		<HatsuneMiku client:idle />
+
+		<!-- Sakura petals (client-side only, controlled by siteConfig.sakura.enable) -->
+		{siteConfig.sakura?.enable ? (
+			<Sakura client:idle />
+		) : null}
 
 
 

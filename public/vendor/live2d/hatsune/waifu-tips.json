@@ -1,0 +1,27 @@
+{
+	"models": [
+		{
+			"paths": ["assets/shizuku.model.json"],
+			"message": "你好，我是示例模型 Shizuku（用于演示）"
+		}
+	],
+	"message": {
+		"welcome": ["欢迎来到本站！我是看板娘，遇到问题可以问我。"],
+		"default": ["需要帮助请点击我！"],
+		"hoverBody": ["别摸我头啦~"],
+		"tapBody": ["哼！"],
+		"photo": "已保存图片",
+		"copy": "已复制到剪贴板",
+		"visibilitychange": "欢迎回来！",
+		"console": "欢迎使用本站"
+	},
+	"time": [
+		{ "hour": "0-6", "text": ["凌晨好，早点休息"] },
+		{ "hour": "6-12", "text": ["早上好！"] },
+		{ "hour": "12-18", "text": ["下午好！"] },
+		{ "hour": "18-24", "text": ["晚上好！"] }
+	],
+	"click": [],
+	"mouseover": [],
+	"seasons": []
+}

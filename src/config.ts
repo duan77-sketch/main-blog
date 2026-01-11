@@ -37,6 +37,12 @@ export const siteConfig: SiteConfig = {
 		//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		// }
 	],
+	// Sakura petals settings (site-wide)
+	sakura: {
+		enable: true,
+		style: "ryuchan",
+		mobileDisable: true,
+	},
 };
 
 export const navBarConfig: NavBarConfig = {
